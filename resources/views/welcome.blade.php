@@ -39,168 +39,143 @@
       .buttons-bar .btn:focus-visible { outline: 3px solid rgba(0,119,255,.35); outline-offset: 2px; }
       .buttons-bar .btn.active { border-color: #0b6bff; background: #e9f2ff; }
 
-      .stage { padding: 0; display: flex; align-items: center; justify-content: center; }
-      .doors-row {
-        width: 100%;
-        height: calc(100svh - var(--header-h));
-        display: flex;
-        align-items: flex-end; /* align bottoms */
-        justify-content: center; /* center the full row */
-        gap: 0; /* doors should touch */
-      }
-      .door {
-        /* Maximize size: constrained by height and total width */
-        height: min(
-          calc(100svh - var(--header-h)),
-          calc(100vw / (7 * 1.2466))
-        );
-        width: auto;
-        aspect-ratio: 902 / 724; /* normalized container ratio */
-        background: transparent;
-        border: 0;
-        border-radius: 0;
-        overflow: visible; /* allow artwork to extend */
-        flex: 0 0 auto; /* don’t shrink */
-      }
-      .door svg { width: 100%; height: 100%; display: block; }
+      /* Stage centers the player */
+    /* Fullscreen player */
+.player {
+  flex: 1;                     /* expand to fill stage */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.player > svg, .player > canvas, .player > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+.stage {
+  min-height: calc(100svh - var(--header-h));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('{{ asset('bg/bg.png') }}') center bottom / cover no-repeat;
+}
     </style>
 
-    <!-- Overrides to maximize door size and add background image -->
-    <style>
-      .stage {
-        align-items: flex-end;
-        justify-content: center;
-        background: url('{{ asset('bg/bg.png') }}') center bottom / cover no-repeat;
-      }
-      .doors-row { height: calc(100svh - var(--header-h)); }
-      .door {
-        height: calc(100svh - var(--header-h));
-        width: calc(100vw / 7);
-        overflow: hidden;
-        flex: 0 0 calc(100vw / 7);
-        position: relative;
-      }
-      .door svg { width: 100%; height: 100%; display: block; }
-    </style>
-
-    <!-- Lottie Web (JSON animations) -->
+    <!-- Lottie Web -->
     <script src="https://cdn.jsdelivr.net/npm/lottie-web@5.12.2/build/player/lottie.min.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="page">
       <header class="buttons-bar">
-        <button class="btn" data-src="{{ asset('doors/NurseryL.json') }}" aria-pressed="false">Door 1</button>
-        <button class="btn" data-src="{{ asset('doors/door2.json') }}" aria-pressed="false">Door 2</button>
-        <button class="btn" data-src="{{ asset('doors/door3.json') }}" aria-pressed="false">Door 3</button>
-        <button class="btn" data-src="{{ asset('doors/door4.json') }}" aria-pressed="false">Door 4</button>
-        <button class="btn" data-src="{{ asset('doors/door5.json') }}" aria-pressed="false">Door 5</button>
-        <button class="btn" data-src="{{ asset('doors/door6.json') }}" aria-pressed="false">Door 6</button>
+        <button class="btn" data-src="{{ asset('doors/School.json') }}"   aria-pressed="false">School</button>
+        <button class="btn" data-src="{{ asset('doors/Teacher.json') }}"  aria-pressed="false">Door 2</button>
+        <button class="btn" data-src="{{ asset('doors/Parent.json') }}"   aria-pressed="false">Door 3</button>
+        <button class="btn" data-src="{{ asset('doors/Student.json') }}"  aria-pressed="false">Door 4</button>
+        <button class="btn" data-src="{{ asset('doors/Company.json') }}"  aria-pressed="false">Door 5</button>
+        <button class="btn" data-src="{{ asset('doors/Shop.json') }}"     aria-pressed="false">Door 6</button>
         <button class="btn" data-src="{{ asset('doors/NurseryR.json') }}" aria-pressed="false">Door 7</button>
       </header>
 
       <main class="stage">
-        <div class="doors-row">
-          <div id="door1" class="door" aria-label="Door 1 animation" title="Door 1"></div>
-          <div id="door2" class="door" aria-label="Door 2 animation" title="Door 2"></div>
-          <div id="door3" class="door" aria-label="Door 3 animation" title="Door 3"></div>
-          <div id="door4" class="door" aria-label="Door 4 animation" title="Door 4"></div>
-          <div id="door5" class="door" aria-label="Door 5 animation" title="Door 5"></div>
-          <div id="door6" class="door" aria-label="Door 6 animation" title="Door 6"></div>
-          <div id="door7" class="door" aria-label="Door 7 animation" title="Door 7"></div>
-        </div>
+        <!-- Single centered player -->
+          <div id="intro-player" class="player"></div>
+       <div id="player" class="player" style="display:none;" aria-label="Selected animation area"></div>
       </main>
     </div>
 
-    <script>
-      (function () {
-        // Measure header to allocate full remaining height to doors
-        function setHeaderHeightVar() {
-          const header = document.querySelector('.buttons-bar');
-          if (header) {
-            const h = header.offsetHeight || 0;
-            document.documentElement.style.setProperty('--header-h', h + 'px');
-          }
-        }
-        setHeaderHeightVar();
-        window.addEventListener('load', setHeaderHeightVar);
-        window.addEventListener('resize', setHeaderHeightVar);
+<script>
+(function () {
+  function setHeaderHeightVar() {
+    const header = document.querySelector('.buttons-bar');
+    const h = header ? header.offsetHeight : 0;
+    document.documentElement.style.setProperty('--header-h', h + 'px');
+  }
+  setHeaderHeightVar();
+  addEventListener('load', setHeaderHeightVar);
+  addEventListener('resize', setHeaderHeightVar);
 
-        const buttons = Array.from(document.querySelectorAll('.buttons-bar .btn'));
-        const doorIds = ['door1','door2','door3','door4','door5','door6','door7'];
-        const containers = doorIds.map(id => document.getElementById(id));
-        if (!buttons.length || containers.some(c => !c)) return;
+  const buttons = Array.from(document.querySelectorAll('.buttons-bar .btn'));
+  const playerEl = document.getElementById('player');
+  const introEl  = document.getElementById('intro-player');
 
-        const LW = (window.lottie && typeof window.lottie.loadAnimation === 'function')
-          ? window.lottie
-          : (window.bodymovin && typeof window.bodymovin.loadAnimation === 'function')
-            ? window.bodymovin
-            : (window.lottie && window.lottie.default && typeof window.lottie.default.loadAnimation === 'function')
-              ? window.lottie.default
-              : null;
+  const LW = window.lottie || window.bodymovin || (window.lottie && window.lottie.default);
+  if (!LW) { console.error('Lottie Web not available'); return; }
 
-        if (!LW) {
-          console.error('Lottie Web library not available.');
-          return;
-        }
+  // Cache JSONs
+  const cache = new Map();
+  let currentAnim = null;
 
-        // Map animations by index
-        const anims = new Array(7).fill(null);
+  async function getAnimationData(url) {
+    if (cache.has(url)) return cache.get(url);
+    const res = await fetch(url, { cache: 'no-cache' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    cache.set(url, data);
+    return data;
+  }
 
-        function setActive(btn) {
-          buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
-          if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); }
-        }
+  function setActiveButton(btn) {
+    buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+    if (btn) { btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); }
+  }
 
-        async function initAnimAt(index, url) {
-          try {
-            const res = await fetch(url, { cache: 'no-cache' });
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const data = await res.json();
+  async function playSrc(url) {
+    try {
+      const data = await getAnimationData(url);
+      if (currentAnim) { try { currentAnim.destroy(); } catch (_) {} playerEl.innerHTML=''; }
+      currentAnim = LW.loadAnimation({
+        container: playerEl,
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        animationData: data,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
+      });
+    } catch (e) { console.error('Failed to play animation:', e); }
+  }
 
-            if (anims[index]) { try { anims[index].destroy(); } catch (_) {} anims[index] = null; }
-            containers[index].innerHTML = '';
+  // --- NEW: Play intro.json immediately ---
+  (async function playIntro() {
+    try {
+      const data = await getAnimationData("{{ asset('doors/intro.json') }}");
+      const introAnim = LW.loadAnimation({
+        container: introEl,
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        animationData: data,
+        rendererSettings: { preserveAspectRatio: 'xMidYMid slice' }
+      });
+    } catch (e) {
+      console.error("Intro load failed:", e);
+    }
+  })();
 
-            const anim = LW.loadAnimation({
-              container: containers[index],
-              renderer: 'svg',
-              loop: false,
-              autoplay: false,
-              animationData: data,
-              rendererSettings: { preserveAspectRatio: 'xMidYMax slice' }
-            });
-            anim.addEventListener('DOMLoaded', function onReady() {
-              try { anim.stop(); } catch (_) {}
-              anim.removeEventListener('DOMLoaded', onReady);
-            });
-            anims[index] = anim;
-          } catch (e) {
-            console.error('Failed to init animation', index + 1, e);
-          }
-        }
+  // Preload all door JSONs
+  buttons.forEach(b => {
+    const src = b.dataset.src;
+    if (src) getAnimationData(src).catch(() => {});
+  });
 
-        // Preload and render all 7, paused
-        buttons.forEach((btn, idx) => {
-          const src = btn.dataset.src;
-          if (src) initAnimAt(idx, src);
-        });
+  // Wire buttons (hide intro, show main player, then run normal function)
+  buttons.forEach((btn, idx) => {
+    const src = btn.dataset.src;
+    const handler = () => {
+      // hide intro if still visible
+      introEl.style.display = "none";
+      playerEl.style.display = "flex";
 
-        // Buttons: play respective animation from start only
-        buttons.forEach((btn, idx) => {
-          btn.addEventListener('click', () => {
-            setActive(btn);
-            const anim = anims[idx];
-            if (anim) { try { anim.stop(); anim.play(); } catch (_) {} }
-          });
-          btn.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              setActive(btn);
-              const anim = anims[idx];
-              if (anim) { try { anim.stop(); anim.play(); } catch (_) {} }
-            }
-          });
-        });
-      })();
-    </script>
+      setActiveButton(btn);
+      playSrc(src);
+    };
+    btn.addEventListener('click', handler);
+    btn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+    });
+  });
+
+})();
+</script>
   </body>
-  </html>
+</html>
