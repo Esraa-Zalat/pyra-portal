@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
     <meta charset="utf-8" />
@@ -19,7 +19,7 @@
 
       .buttons-bar {
         width: 100%;
-        box-sizing: border-box;
+        /* box-sizing: border-box; */
         padding: 12px 16px;
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -27,17 +27,26 @@
         align-items: center;
       }
       .buttons-bar .btn {
-        height: 48px;
-        border-radius: 8px;
-        border: 1px solid #c7c7c7;
-        background: #f6f6f6;
-        color: #222;
-        font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        /* height: 48px; */
+        margin-bottom:-550px;
+        z-index: 1000;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border:none;
+        background:transparent;
+      
       }
-      .buttons-bar .btn:hover { background: #efefef; }
+      .buttons-bar .btn img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+      /* .buttons-bar .btn:hover { background: #efefef; }
       .buttons-bar .btn:focus-visible { outline: 3px solid rgba(0,119,255,.35); outline-offset: 2px; }
-      .buttons-bar .btn.active { border-color: #0b6bff; background: #e9f2ff; }
+      .buttons-bar .btn.active { border-color: #0b6bff; background: #e9f2ff; } */
 
       /* Stage centers the player */
     /* Fullscreen player */
@@ -60,6 +69,9 @@
   justify-content: center;
   background: url('{{ asset('bg/bg.png') }}') center bottom / cover no-repeat;
 }
+
+
+
     </style>
 
     <!-- Lottie Web -->
@@ -67,18 +79,22 @@
   </head>
   <body>
     <div class="page">
-      <header class="buttons-bar">
-        <button class="btn" data-src="{{ asset('doors/School.json') }}"   aria-pressed="false">School</button>
-        <button class="btn" data-src="{{ asset('doors/Teacher.json') }}"  aria-pressed="false">Door 2</button>
-        <button class="btn" data-src="{{ asset('doors/Parent.json') }}"   aria-pressed="false">Door 3</button>
-        <button class="btn" data-src="{{ asset('doors/Student.json') }}"  aria-pressed="false">Door 4</button>
-        <button class="btn" data-src="{{ asset('doors/Company.json') }}"  aria-pressed="false">Door 5</button>
-        <button class="btn" data-src="{{ asset('doors/Shop.json') }}"     aria-pressed="false">Door 6</button>
-        <button class="btn" data-src="{{ asset('doors/NurseryR.json') }}" aria-pressed="false">Door 7</button>
-      </header>
+      
+    
+        <div class="buttons-bar"  style="width:75%; margin:auto; margin-button:-20px;">
+        <button class="btn" data-src="{{ asset('doors/School.json') }}"   aria-pressed="false" aria-label="School"><img src="{{ asset('button/school.png') }}" alt="School" /></button>
+        <button class="btn" data-src="{{ asset('doors/Teacher.json') }}"  aria-pressed="false" aria-label="Teacher"><img src="{{ asset('button/teacher.png') }}" alt="Teacher" /></button>
+        <button class="btn" data-src="{{ asset('doors/Parent.json') }}"   aria-pressed="false" aria-label="Parent"><img src="{{ asset('button/parent.png') }}" alt="Parent" /></button>
+        <button class="btn" data-src="{{ asset('doors/Student.json') }}"  aria-pressed="false" aria-label="Student"><img src="{{ asset('button/student.png') }}" alt="Student" /></button>
+        <button class="btn" data-src="{{ asset('doors/Company.json') }}"  aria-pressed="false" aria-label="Company"><img src="{{ asset('button/company.png') }}" alt="Company" /></button>
+        <button class="btn" data-src="{{ asset('doors/Shop.json') }}"     aria-pressed="false" aria-label="Shop"><img src="{{ asset('button/shop.png') }}" alt="Shop" /></button>
+        <button class="btn" data-src="{{ asset('doors/NurseryR.json') }}" aria-pressed="false" aria-label="Nursery"><img src="{{ asset('button/nursery.png') }}" alt="Nursery" /></button>
+</div>
 
       <main class="stage">
         <!-- Single centered player -->
+
+
           <div id="intro-player" class="player"></div>
        <div id="player" class="player" style="display:none;" aria-label="Selected animation area"></div>
       </main>
