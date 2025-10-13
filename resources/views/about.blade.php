@@ -21,6 +21,7 @@
   <main>
     <!-- VIDEO + EXECUTIVE SUMMARY -->
     <section class="container section">
+      <div class="row bg" >
       <div class="grid-2">
         <figure class="video-card">
           <div class="video-thumb">
@@ -38,69 +39,56 @@
 
         <article class="summary">
           <h2>Executive <span class="pill">Summary</span></h2>
-          <ul class="sum-list">
-            <li class="sum-item"><span class="dot"></span><p>Pyramakerz Holding advances education & technology with immersive solutions for learners and organizations.</p></li>
-            <li class="sum-item"><span class="dot"></span><p>The group includes subsidiaries such as Edsimz, Lablab, Labian, Finanalytics, MAL&EM, and ROBOT4, unifying cutting-edge tech with operational excellence across the MENA region.</p></li>
-            <li class="sum-item"><span class="dot"></span><p>We lead the sector into a new era of innovation and impact through a holistic, integrated ecosystem.</p></li>
-            <li class="sum-item"><span class="dot"></span><p>We build tools and experiences that deliver measurable outcomes and shape the future of learning.</p></li>
+          <ul class="summary-list">
+           <li class="sum-item">
+           <img src="icons/star.png" alt="" /><p>Pyramakerz Holding advances education & technology with immersive solutions for learners and organizations.</p></li>
+            <li class="sum-item"><img src="icons/star.png"><p>The group includes subsidiaries such as Edsimz, Lablab, Labian, Finanalytics, MAL&EM, and ROBOT4, unifying cutting-edge tech with operational excellence across the MENA region.</p></li>
+            <li class="sum-item"><img src="icons/star.png"><p>We lead the sector into a new era of innovation and impact through a holistic, integrated ecosystem.</p></li>
+            <li class="sum-item"><img src="icons/star.png"><p>We build tools and experiences that deliver measurable outcomes and shape the future of learning.</p></li>
           </ul>
         </article>
       </div>
+</div>
     </section>
 
     <!-- WHO WE ARE + VISION -->
-    <section class="container section">
-      <div class="grid-2-uneven">
-        <!-- left -->
-        <aside class="who">
-          <h3>Who <span class="accent">We Are ?</span></h3>
-          <p>Katalyst Studio offers a range of design services tailored to each client’s needs.</p>
-          <nav class="tabs" aria-label="Who we are">
-            <button class="tab active" data-tab="vision"><span><span class="i">01</span> &nbsp; <strong>Vision</strong></span><span>⟶</span></button>
-            <button class="tab" data-tab="mission"><span><span class="i">02</span> &nbsp; <strong>Mission</strong></span><span>⟶</span></button>
-            <button class="tab" data-tab="core"><span><span class="i">03</span> &nbsp; <strong>Core Value</strong></span><span>⟶</span></button>
-          </nav>
-        </aside>
+    <section class="container who-section">
+  <div class="who-row">
+    <!-- 4 cols: WHO WE ARE / tabs -->
+    <aside class="who-card">
+      <h3 class="who-title">Who <span class="accent">We Are ?</span></h3>
+      <p class="who-lead">Katalyst Studio offers a range of design services tailored to each client.</p>
 
-        <!-- right: content + side cards -->
-        <div style="display:grid;gap:18px;grid-template-columns:1fr minmax(0,300px);align-items:start;">
-          <article class="card" id="panel-vision" role="tabpanel">
-            <h4>Vision</h4>
-            <p>To be the leading education technology and service provider in the MENA region—fostering creativity, critical thinking, and future-readiness through innovative solutions.</p>
-            <div class="media">
-              <img src="{{ asset('about-vision.png') }}" alt="Our vision">
-            </div>
-          </article>
+      <nav class="tabs" aria-label="Who we are">
+        <button class="tab active" data-tab="vision"><span class="i">01</span><strong> Vision</strong> <span class="arrow">⟶</span></button>
+        <button class="tab" data-tab="mission"><span class="i">02</span><strong> Mission</strong> <span class="arrow">⟶</span></button>
+        <button class="tab" data-tab="core"><span class="i">03</span><strong> Core Value</strong> <span class="arrow">⟶</span></button>
+      </nav>
+    </aside>
 
-          <article class="card" id="panel-mission" role="tabpanel" hidden>
-            <h4>Mission</h4>
-            <p>Empower learners and educators with delightful technology that measurably improves outcomes across schools and organizations.</p>
-            <div class="media">
-              <img src="{{ asset('about-vision.png') }}" alt="Our mission">
-            </div>
-          </article>
-
-          <article class="card" id="panel-core" role="tabpanel" hidden>
-            <h4>Core Value</h4>
-            <p>Equity, curiosity, craftsmanship, and pragmatic impact. We build with empathy and measure by learner success.</p>
-            <div class="media">
-              <img src="{{ asset('about-vision.png') }}" alt="Our core values">
-            </div>
-          </article>
-
-          <div class="side">
-            <a class="cta" href="#how-we-work">
-              <div style="font-weight:800;font-size:18px;margin-bottom:6px">Ever wondered how design magic happens?</div>
-              <div class="arrow">See how we work →</div>
-            </a>
-            <a class="cta orange" href="#meet-expert">
-              <div style="font-weight:800;font-size:18px;margin-bottom:6px">Looking for design experts who can bring your vision to life?</div>
-              <div class="arrow">Meet our expert →</div>
-            </a>
-          </div>
-        </div>
+    <!-- 6 cols: VISION card -->
+    <article class="vision-card" id="panel-vision" role="tabpanel">
+      <h4>Vision</h4>
+      <p>To be the leading education technology and service provider in the MENA region—fostering creativity, critical thinking, and future-readiness through innovative solutions.</p>
+      <div class="media">
+        <img src="about/vision.png" alt="Our vision">
       </div>
-    </section>
+    </article>
+
+    <!-- 2 cols: side CTAs -->
+    <aside class="side-ctas">
+      <a class="cta" href="#how-we-work">
+        <div class="cta-title">Ever wondered how design magic happens?</div>
+        <div class="cta-arrow">See how we work →</div>
+      </a>
+      <a class="cta orange" href="#meet-expert">
+        <div class="cta-title">Looking for design experts who can bring your vision to life?</div>
+        <div class="cta-arrow">Meet our expert →</div>
+      </a>
+    </aside>
+  </div>
+</section>
+
   </main>
 
   <!-- FOOTER (simple version from mock) -->
@@ -175,5 +163,18 @@
       });
     });
   </script>
+
+
+<script>
+  document.querySelectorAll('.tab').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      // If you later add #panel-mission / #panel-core, toggle them here
+    });
+  });
+</script>
+
+
 </body>
 </html>
