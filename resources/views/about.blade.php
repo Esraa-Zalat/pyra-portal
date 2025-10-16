@@ -112,51 +112,7 @@
 
     </main>
 
-    <!-- FOOTER (simple version from mock) -->
-    <footer>
-        <div class="container f-grid">
-            <div class="f-brand">
-                <img src="{{ asset('logo.png') }}" alt="Pyramakerz" style="height:28px">
-                <p>Pyramakerz Holding is uniquely positioned to lead the education sector into a new era of innovation
-                    and impact.</p>
-                <div class="social">
-                    <a href="#" aria-label="Facebook">f</a>
-                    <a href="#" aria-label="YouTube">▶</a>
-                    <a href="#" aria-label="Instagram">◎</a>
-                    <a href="#" aria-label="X">x</a>
-                </div>
-            </div>
-            <div class="f-col">
-                <h5>Quick Links</h5>
-                <ul class="f-list">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/school">School</a></li>
-                    <li><a href="/teacher">Teacher</a></li>
-                    <li><a href="/parent">Parent</a></li>
-                </ul>
-            </div>
-            <div class="f-col">
-                <h5>Contact Us</h5>
-                <ul class="f-list">
-                    <li>012554888545</li>
-                    <li>12 kafria tours, Yehia Mosque, Alexandria Egypt</li>
-                    <li>Cairo Address</li>
-                </ul>
-            </div>
-            <div class="f-col">
-                <h5>Subscribe Now</h5>
-                <div class="subscribe">
-                    <input type="email" placeholder="Email">
-                    <button type="button">Subscribe</button>
-                </div>
-            </div>
-        </div>
-        <div class="container legal">
-            <div>Privacy Policy · Terms of Conditions · Cookie Policy</div>
-            <div>© {{ date('Y') }} Pyramakerz. All rights reserved.</div>
-        </div>
-    </footer>
-
+    @include('includes.footer')
     <script>
         // Play video inline
         const playBtn = document.getElementById('playBtn');
